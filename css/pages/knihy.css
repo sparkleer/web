@@ -1,0 +1,28 @@
+/* 
+    Document   : knihy
+    Created on : 17.12.2014, 12:15:46
+    Author     : Jerryn
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+
+.th-rok {
+	width: 100px;
+}
+.th-autor {
+	width: 150px;
+}
+.th-zanr {
+	width: 150px;
+}
+
+.th-vydavatelstvi {
+
+	vertical-align: top;
+}
+
+.th-spacer {
+	font-size: 23px;
+}

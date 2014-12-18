@@ -1,0 +1,97 @@
+{% extends "main.twig" %}
+{% block content %}
+    
+<div class="row">
+    <div class="col-md-12">
+	<div class="table-responsive">
+	    <table class="table table-striped table-hover">
+		<thead>
+		    <tr>
+			{% if session.uzivatel.is_admin == 1 %}
+			    <th class="status-bar-td">&nbsp;</th>
+			    <th>Uživatel</th>
+			    <th>Název knihy</th>
+			    <th>Žánr</th>
+			    <th>Datum rezervace</th>
+			    <th>Stav</th>
+			    <th>Volby</th>
+			{% else %}
+			    <th  class="status-bar-td">&nbsp;</th>
+			    <th>Název knihy</th>
+			    <th>Rok vydání</th>
+			    <th>Žánr</th>
+			    <th>Datum rezervace</th>
+			    <th>Stav</th>
+			    <th>Volby</th>
+			{% endif %}
+
+		    </tr>
+		</thead>
+		<tbody>
+		    {% for key,zapujcka in seznam %}
+			<tr>
+			    {% if session.uzivatel.is_admin == 1 %}
+			
+				<td class="status-bar-td"><i class="fa fa-book fa-lg {% if zapujcka.vypujceno == 0 %}orange{% elseif zapujcka.vypujceno == 1%}red{% elseif zapujcka.vypujceno == 2 %}green{% endif %}" id="statusBar-{{ zapujcka.user_id }}-{{ zapujcka.id_kniha }}"></i></td>
+				<td>{{ zapujcka.jmeno }} {{ zapujcka.prijmeni }}<br><small class="gray">({{ zapujcka.login }})</small></td>
+				<td>{{ zapujcka.nazev_knihy }}</td>
+				<td>{{ zapujcka.zanr }}</td>
+				<td>{{ zapujcka.datetime_rezervace | date("d.m.Y H:i:s")}}</td>
+				<td><select class="form-control size-smaller vypujcenoSelect" data-id-knihy="{{ zapujcka.id_kniha}}" data-id-user="{{ zapujcka.user_id }}" name="vypujceno">
+					<option value="0" {% if zapujcka.vypujceno == 0 %}selected{% endif %}>Rezervováno</option>
+					<option value="1" {% if zapujcka.vypujceno == 1 %}selected{% endif %}>Vypůjčeno</option>
+					<option value="2" {% if zapujcka.vypujceno == 2 %}selected{% endif %}>Vráceno</option>
+				    </select>
+				
+				<span class='datetimeVypujceni' id="datetimeVypujceni-{{ zapujcka.user_id }}-{{ zapujcka.id_kniha }}">
+				{% if zapujcka.vypujceno == 1 %}
+				    <small class="red">{{ zapujcka.datetime_vypujceni | date("d.m.Y H:i:s")}}</small>
+				 {% elseif zapujcka.vypujceno == 2 %}
+				    <small class="green">{{ zapujcka.datetime_vypujceni | date("d.m.Y H:i:s")}}</small>
+				 {% endif %}
+				
+				</span>
+					
+				</td>
+				<td>
+				    <div class="btn-group" role="group">
+				      <button type="button" class="btn btn-default infoButton"  data-toggle="tooltip" title="Info o knize" data-id="{{ zapujcka.id_kniha}}"><span class="fa fa-search" ></span></button>
+
+				      <button type="button" class="btn btn-default {% if zapujcka.vypujceno == 1 %}disabled{% endif %} deleteButton" data-id="{{ zapujcka.id_kniha }}" data-id-user="{{ zapujcka.user_id }}" id="deleteButton-{{ zapujcka.user_id }}-{{ zapujcka.id_kniha }}" data-toggle="tooltip" title="Smazat rezervaci"><span class="fa fa-times red"></span></button></div>
+
+				    </div>
+				</td>
+			    {% else %}
+				<td class="status-bar-td"><i class="fa fa-book fa-lg {% if zapujcka.vypujceno == 0 %}orange{% elseif zapujcka.vypujceno == 1%}red{% elseif zapujcka.vypujceno == 2 %}green{% endif %}" id="statusBar-{{ zapujcka.user_id }}-{{ zapujcka.id_kniha }}"></i></td>
+				<td>{{ zapujcka.nazev_knihy }}</td>
+
+				<td>{{ zapujcka.rok }}</td>
+				<td>{{ zapujcka.zanr }}</td>
+				<td>{{ zapujcka.datetime_rezervace | date("d.m.Y H:i:s")}}</td>
+				<td>{% if zapujcka.vypujceno == 0 %}Rezervováno<br>&nbsp;{% elseif zapujcka.vypujceno == 1%}<span class="red">Vypůjčeno</span><br><small class="gray">{{ zapujcka.datetime_vypujceni | date("d.m.Y H:i:s")}}</small>{% else %}<span class="green">Vráceno</span><br><small class="gray"> {{ zapujcka.datetime_vypujceni | date("d.m.Y H:i:s") }}</small>{% endif %}</td>
+				<td>
+				    <div class="btn-group" role="group">
+				      <button type="button" class="btn btn-default infoButton"  data-toggle="tooltip" title="Info o knize" data-id="{{ zapujcka.id_kniha}}"><span class="fa fa-search" ></span></button>
+
+				      <button type="button" class="btn btn-default {% if zapujcka.vypujceno == 1 %}disabled{% endif %} deleteButton" data-id="{{ zapujcka.id_kniha }}" data-toggle="tooltip" title="Smazat rezervaci"><span class="fa fa-times red"></span></button></div>
+
+				    </div>
+				</td>
+			    {% endif %}
+			</tr>
+		    {% endfor %}
+		</tbody>
+	    
+	    </table>
+	</div>
+    </div>
+
+
+
+
+</div>
+
+{% endblock %}
+        
+    
+

@@ -1,0 +1,92 @@
+{% extends "main.twig" %}
+{% block content %}
+<div id="vydavatelstvi-edit" class="modal bootstrap-dialog type-info fade size-normal in user-dialog col-md-6 col-md-offset-3" tabindex="-1" role="dialog" data-width="760" style="display: none;">
+	<form role="form" name="vydavatelstvi-edit-form" id="vydavatelstvi-edit-form">
+	    <input type="hidden" id="id_vydavatelstvi" name="id_vydavatelstvi">
+	    <input type="hidden" id="url" name="url" value="vydavatelstvi/editVydavatelstvi">
+    <div class="modal-header alert-info">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">Editace vydavatelství</h4>
+    </div>
+    <div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Údaje vydavatelství</h4>
+				<div class="form-group">
+					<label for="jmeno">Název: </label>
+					<input class="form-control" name="nazev" id="nazev">
+				</div>
+							
+					
+				
+			</div>
+			
+		</div>
+		
+    </div>
+    <div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn btn-default"><i class="fa fa-close"></i> Zavřít</button>
+		
+		<button type="button" type="submit" id="vydavatelstvi-edit-submit" class="btn btn-primary" ><i class="fa fa-save"></i> Uložit</button>
+	
+    </div>
+	</form>
+</div> 
+<div class="row">
+    <div class="col-md-3">
+    <button id="newVydavatelstvi" data-toggle="modal" data-target="#vydavatelstvi-edit"><i class="fa fa-plus"></i> Nové vydavatelství</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+		
+	<div class="table-responsive">
+	    <table class="table table-striped table-hover">
+		<thead>
+		    <tr>
+				
+					
+			<th>ID</th>
+			<th class="th-autor">Název</th>
+
+			<th class="options-col">Volby</th>
+				
+		    </tr>
+		</thead>
+		<tbody>
+		    {% for vydav in vydavatelstvi %}
+			<tr>
+
+			    <td>{{ vydav.id_vydavatelstvi }}</td>
+			   
+			    <td>{{ vydav.nazev }}</td>
+		
+			
+			    
+			    <td>
+				<div class="btn-group" role="group">
+				  <button type="button" class="btn btn-default btn-responsive showUserEditDialog"  data-id="{{ vydav.id_vydavatelstvi }}" data-toggle="modal" data-target="#vydavatelstvi-edit"><span class="fa fa-pencil" ></span></button>
+				  
+				   <button type="button" class="btn btn-default btn-responsive deleteButton " data-id="{{ vydav.id_vydavatelstvi }}" data-toggle="tooltip" title="Smazat vydavatelství"><span class="fa fa-times red"></span></button></div>
+				 
+				</div>
+			    </td>
+			    
+			</tr>
+		    {% endfor %}
+		</tbody>
+	    
+	    </table>
+	</div>
+    </div>
+
+
+
+
+</div>
+
+{% endblock %}
+        
+    
+

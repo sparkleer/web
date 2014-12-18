@@ -1,0 +1,90 @@
+{% extends "main.twig" %}
+{% block content %}
+<div id="zanr-edit" class="modal bootstrap-dialog type-info fade size-normal in user-dialog col-md-6 col-md-offset-3" tabindex="-1" role="dialog" data-width="760" style="display: none;">
+	<form role="form" name="zanr-edit-form" id="zanr-edit-form">
+	    <input type="hidden" id="id_zanr" name="id_zanr">
+	    <input type="hidden" id="url" name="url" value="zanry/editZanr">
+    <div class="modal-header alert-info">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">Editace žánru</h4>
+    </div>
+    <div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Údaje žánru</h4>
+				<div class="form-group">
+					<label for="nazev">Název: </label>
+					<input class="form-control" name="nazev" id="nazev">
+				</div>
+							
+					
+				
+			</div>
+			
+		</div>
+		
+    </div>
+    <div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn btn-default"><i class="fa fa-close"></i> Zavřít</button>
+		
+		<button type="button" type="submit" id="zanr-edit-submit" class="btn btn-primary" ><i class="fa fa-save"></i> Uložit</button>
+	
+    </div>
+	</form>
+</div> 
+<div class="row">
+    <div class="col-md-3">
+    <button id="newZanr" data-toggle="modal" data-target="#zanr-edit"><i class="fa fa-plus"></i> Nový žánr</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+		
+	<div class="table-responsive">
+	    <table class="table table-striped table-hover">
+		<thead>
+		    <tr>
+				
+					
+			<th>ID</th>
+			<th class="th-autor">Název</th>
+
+			<th class="options-col">Volby</th>
+				
+		    </tr>
+		</thead>
+		<tbody>
+		    {% for zanr in zanry %}
+			<tr>
+
+			    <td>{{ zanr.id_zanr }}</td>
+			   
+			    <td>{{ zanr.nazev }}</td>
+			    
+			    <td>
+				<div class="btn-group" role="group">
+				  <button type="button" class="btn btn-default btn-responsive showUserEditDialog"  data-id="{{ zanr.id_zanr }}" data-toggle="modal" data-target="#zanr-edit"><span class="fa fa-pencil" ></span></button>
+				  
+				   <button type="button" class="btn btn-default btn-responsive deleteButton " data-id="{{ zanr.id_zanr }}" data-toggle="tooltip" title="Smazat žánr"><span class="fa fa-times red"></span></button></div>
+				 
+				</div>
+			    </td>
+			    
+			</tr>
+		    {% endfor %}
+		</tbody>
+	    
+	    </table>
+	</div>
+    </div>
+
+
+
+
+</div>
+
+{% endblock %}
+        
+    
+
